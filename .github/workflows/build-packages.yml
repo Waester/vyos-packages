@@ -1,0 +1,91 @@
+name: Build packages
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+
+    container:
+      image: vyos/vyos-build:${{ github.ref_name }}
+      options: --privileged --sysctl net.ipv6.conf.lo.disable_ipv6=0
+
+    strategy:
+      matrix:
+        packages: [
+          'build/amazon-cloudwatch-agent.sh',
+          'build/dropbear.sh',
+          'build/frr.sh',
+          'build/hostap.sh',
+          'build/iproute2.sh',
+          'build/keepalived.sh',
+          'build/linux-kernel.sh',
+          'build/minisign.sh',
+          'build/netfilter.sh',
+          'build/ocserv.sh',
+          'build/python3-inotify.sh',
+          'build/telegraf.sh',
+          'build/vyos-1x.sh',
+          'build/vyos-cloud-init.sh',
+          'build/vyos-strongswan.sh',
+          'build/vyos-xe-guest-utilities.sh',
+          'build/wide-dhcpv6.sh',
+          'build/helper/buildrepo.sh hvinfo',
+          'build/helper/buildrepo.sh ipaddrcheck',
+          'build/helper/buildrepo.sh libnss-mapuser',
+          'build/helper/buildrepo.sh libpam-radius-auth',
+          'build/helper/buildrepo.sh libvyosconfig',
+          'build/helper/buildrepo.sh live-boot',
+          'build/helper/buildrepo.sh mdns-repeater',
+          'build/helper/buildrepo.sh udp-broadcast-relay',
+          'build/helper/buildrepo.sh vyatta-bash',
+          'build/helper/buildrepo.sh vyatta-biosdevname',
+          'build/helper/buildrepo.sh vyatta-cfg',
+          'build/helper/buildrepo.sh vyatta-cfg-firewall',
+          'build/helper/buildrepo.sh vyatta-cfg-qos',
+          'build/helper/buildrepo.sh vyatta-cfg-quagga',
+          'build/helper/buildrepo.sh vyatta-cfg-system',
+          'build/helper/buildrepo.sh vyatta-cfg-vpn',
+          'build/helper/buildrepo.sh vyatta-cluster',
+          'build/helper/buildrepo.sh vyatta-config-mgmt',
+          'build/helper/buildrepo.sh vyatta-conntrack',
+          'build/helper/buildrepo.sh vyatta-nat',
+          'build/helper/buildrepo.sh vyatta-op',
+          'build/helper/buildrepo.sh vyatta-op-firewall',
+          'build/helper/buildrepo.sh vyatta-op-qos',
+          'build/helper/buildrepo.sh vyatta-op-vpn',
+          'build/helper/buildrepo.sh vyatta-wanloadbalance',
+          'build/helper/buildrepo.sh vyatta-zone',
+          'build/helper/buildrepo.sh vyos-http-api-tools',
+          'build/helper/buildrepo.sh vyos-nhrp',
+          'build/helper/buildrepo.sh vyos-opennhrp',
+          'build/helper/buildrepo.sh vyos-user-utils',
+          'build/helper/buildrepo.sh vyos-utils',
+          'build/helper/buildrepo.sh vyos-world',
+        ]
+
+    steps:
+      - uses: actions/checkout@v4
+      - run: git config --global --add safe.directory '*'
+
+      - id: build
+        run: ${{ matrix.packages }}
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.build.outputs.build_name }}
+          path: ${{ github.workspace }}/*.deb
+
+  merge:
+    runs-on: ubuntu-latest
+    needs: build 
+
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: ${{ github.workspace }}
+          merge-multiple: true
+
+      - uses: actions/upload-artifact@v4
+        with:
+          path: ${{ github.workspace }}/*.deb

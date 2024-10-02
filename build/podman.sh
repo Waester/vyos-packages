@@ -2,11 +2,10 @@
 set -euo pipefail
 
 WORKDIR=$(pwd)
-PACKAGE=hostap
+PACKAGE=podman
 echo build_name=$PACKAGE >> $GITHUB_OUTPUT
 
 git clone https://github.com/vyos/vyos-build.git -b $(git rev-parse --abbrev-ref HEAD) --single-branch; cd vyos-build/packages/$PACKAGE
-git clone https://salsa.debian.org/debian/wpa -b debian/2%2.10-12 --single-branch
-git clone git://w1.fi/srv/git/hostap.git --single-branch; cd hostap; git checkout e7172e26d; cd ..
+git clone https://github.com/containers/podman -b v4.9.5 --single-branch
 ./build.sh
 mv *.deb "$WORKDIR"

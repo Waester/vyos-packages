@@ -5,8 +5,5 @@ WORKDIR=$(pwd)
 PACKAGE=ddclient
 echo build_name=$PACKAGE >> $GITHUB_OUTPUT
 
-git clone https://github.com/vyos/vyos-build.git -b $(git rev-parse --abbrev-ref HEAD) --single-branch; cd vyos-build/packages/$PACKAGE
-git clone https://salsa.debian.org/debian/ddclient -b debian/3.10.0-3 --single-branch ddclient-debian
-git clone https://github.com/ddclient/ddclient -b v3.11.2 --single-branch ddclient-github
-./build.sh
-mv *.deb "$WORKDIR"
+git clone https://salsa.debian.org/debian/ddclient -b debian/3.11.2-1 --single-branch; cd ddclient
+sudo mk-build-deps --install --tool "apt-get --yes --no-install-recommends"; dpkg-buildpackage -uc -us -tc -b

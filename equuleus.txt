@@ -308,10 +308,10 @@ repositories/equuleus/pool/main/v/vyatta-op-vpn/vyatta-op-vpn_1.3-1_all.deb
 repositories/equuleus/pool/main/v/vyatta-wanloadbalance/vyatta-wanloadbalance-dbgsym_1.3-1_amd64.deb
 repositories/equuleus/pool/main/v/vyatta-wanloadbalance/vyatta-wanloadbalance_1.3-1_amd64.deb
 repositories/equuleus/pool/main/v/vyatta-zone/vyatta-zone_0.15+vyos2+current1_all.deb
-repositories/equuleus/pool/main/v/vyos-1x/vyos-1x-dbgsym_1.3dev0-4114-g9cfa2ec77_amd64.deb
-repositories/equuleus/pool/main/v/vyos-1x/vyos-1x-smoketest_1.3dev0-4114-g9cfa2ec77_all.deb
-repositories/equuleus/pool/main/v/vyos-1x/vyos-1x-vmware_1.3dev0-4114-g9cfa2ec77_amd64.deb
-repositories/equuleus/pool/main/v/vyos-1x/vyos-1x_1.3dev0-4114-g9cfa2ec77_amd64.deb
+repositories/equuleus/pool/main/v/vyos-1x/vyos-1x-dbgsym_1.3dev0-4126-ga79b59070_amd64.deb
+repositories/equuleus/pool/main/v/vyos-1x/vyos-1x-smoketest_1.3dev0-4126-ga79b59070_all.deb
+repositories/equuleus/pool/main/v/vyos-1x/vyos-1x-vmware_1.3dev0-4126-ga79b59070_amd64.deb
+repositories/equuleus/pool/main/v/vyos-1x/vyos-1x_1.3dev0-4126-ga79b59070_amd64.deb
 repositories/equuleus/pool/main/v/vyos-drivers-intel-ice/vyos-drivers-intel-ice_1.11.14-1_amd64.deb
 repositories/equuleus/pool/main/v/vyos-drivers-realtek-r8152/vyos-drivers-realtek-r8152_2.17.1-1_amd64.deb
 repositories/equuleus/pool/main/v/vyos-http-api-tools/vyos-http-api-tools-dbgsym_2.1_amd64.deb
